@@ -29,7 +29,7 @@ public class SobelGradiente
 					this.Gx[k]= px = multiplicar(Sx, img, x, y);
 					this.Gy[k]= py = multiplicar(Sy, img, x, y);
 //					this.mapaGradiente.pixels[ indice(x,y) ] = (int)Math.sqrt( Math.pow( px, 2) + Math.pow( py, 2) );
-					this.mapaGradiente.pixels[ k ] = px + py;
+					this.mapaGradiente.pixels[ k ] = (px > 10) ? px : 0;
 				}
 			}
 		return this.mapaGradiente;

@@ -32,7 +32,7 @@ public class FiltroImpressionismo extends PApplet
 	
 	public void draw()
 	{
-		PImage img = loadImage("thamara2.jpeg");
+		PImage img = loadImage("thamara.jpeg");
 		SobelGradiente novo = new SobelGradiente(img);
 		
 		float media;
@@ -47,10 +47,11 @@ public class FiltroImpressionismo extends PApplet
 				}
 			}
 			img.updatePixels();
+			scale((float)0.5);
 			image(img,0,0);
 			
 			PImage result = novo.processar(img);
-			image(result,800,0);
+			image(result,1000,0);
 //		pintar();
 	}
 	
