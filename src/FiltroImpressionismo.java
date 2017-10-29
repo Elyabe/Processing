@@ -12,7 +12,7 @@ public class FiltroImpressionismo extends PApplet
 	
 	public void settings()
 	{
-		size(1200, 800);
+		size(1600, 800);
 	}
 	
 	public void setup()
@@ -25,17 +25,36 @@ public class FiltroImpressionismo extends PApplet
 	int ind_img = 1,
 		tam_pincelada = 10,
 		orient = 30,
-		peso_max = 30;
+		peso_max = 30,
+		k;
 	
 	float escala = 1;
 	
 	public void draw()
 	{
+		PImage img = loadImage("thamara2.jpeg");
+		SobelGradiente novo = new SobelGradiente(img);
 		
-		pintar();
+		float media;
+		//Converter em tons de cinza	
+			for ( int x = 1; x < img.width - 2; x++ )
+			{
+				for ( int y = 1; y < img.height - 2; y++ )
+				{
+					k = x + y*img.width;
+					media = ( red(img.pixels[k]) + green( img.pixels[k]) + blue(img.pixels[k]) )/3;
+					img.pixels[k] = color( media );
+				}
+			}
+			img.updatePixels();
+			image(img,0,0);
+			
+			PImage result = novo.processar(img);
+			image(result,800,0);
+//		pintar();
 	}
 	
-	float diagonal( float x, float y )
+	public static float diagonal( float x, float y )
 	{
 		return (float)Math.sqrt( pow( x, 2) + pow( y, 2) );
 	}
