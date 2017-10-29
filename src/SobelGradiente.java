@@ -8,25 +8,28 @@ public class SobelGradiente
 	
 	public SobelGradiente(PImage img ) {
 		this.mapaGradiente = new PImage(img.width, img.height );
+		this.Gx = new float[img.width*img.height];
+		this.Gy = new float[img.width*img.height];
 	}
 	
 	public PImage processar( PImage img )
 	{
 		int Sx[][] = {{-1,0,1},{-2,0,2},{-1,0,1}},
 		    Sy[][] = {{1,2,1},{0,0,0},{-1,-2,-1}},
-			    k, 
-			    px,
-			    py;
+		    k, 
+		    px,
+		    py;
 		
 		img.loadPixels();	
 			for ( int x = 1; x < img.width - 2; x++ )
 			{
 				for ( int y = 1; y < img.height - 2; y++ )
 				{
-					px = multiplicar(Sx, img, x, y);
-					py = multiplicar(Sy, img, x, y);
+					k = indice(x,y);
+					this.Gx[k]= px = multiplicar(Sx, img, x, y);
+					this.Gy[k]= py = multiplicar(Sy, img, x, y);
 //					this.mapaGradiente.pixels[ indice(x,y) ] = (int)Math.sqrt( Math.pow( px, 2) + Math.pow( py, 2) );
-					this.mapaGradiente.pixels[ indice(x,y) ] = px;
+					this.mapaGradiente.pixels[ k ] = px + py;
 				}
 			}
 		return this.mapaGradiente;
